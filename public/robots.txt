@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://shinjirou11.github.io/kaidan-blog/sitemap-index.xml

@@ -9,6 +9,20 @@ const sorted = allArticles.sort((a, b) => b.data.pubDate.getTime() - a.data.pubD
 const recent = sorted.slice(0, 5);
 const kaidanArticles = sorted.filter(a => a.data.category === 'kaidan').slice(0, 3);
 const horrorArticles = sorted.filter(a => a.data.category === 'horror').slice(0, 3);
+
+const siteUrl = 'https://shinjirou11.github.io/kaidan-blog';
+const websiteJsonLd = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: '怪談と闇の記録',
+  url: siteUrl,
+  description: '怪談・ホラー映画のネタバレなし感想と考察。じわじわとした恐怖の余韻を大切に。',
+  inLanguage: 'ja',
+  publisher: {
+    '@type': 'Person',
+    name: 'ホラー好き大学生',
+  },
+});
 ---
 
 <BaseLayout
@@ -16,6 +30,7 @@ const horrorArticles = sorted.filter(a => a.data.category === 'horror').slice(0,
   description="怪談・ホラー映画のネタバレなし感想と考察。じわじわとした恐怖の余韻を大切に。"
   keywords={['怪談', 'ホラー映画', '感想', 'ネタバレなし', '考察']}
 >
+  <script type="application/ld+json" set:html={websiteJsonLd} />
   <section class="hero">
     <div class="container">
       <p class="hero__label">Horror &amp; Kaidan Review</p>
