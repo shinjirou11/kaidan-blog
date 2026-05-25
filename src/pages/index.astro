@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ArticleCard from '../components/ArticleCard.astro';
+import { url } from '../utils/url';
 
 const allArticles = await getCollection('articles');
 const sorted = allArticles.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
@@ -42,7 +43,7 @@ const horrorArticles = sorted.filter(a => a.data.category === 'horror').slice(0,
       <section class="section">
         <div class="section__header">
           <h2 class="section__title">怪談</h2>
-          <a href={`${import.meta.env.BASE_URL}kaidan`} class="section__link">すべて見る →</a>
+          <a href={url('kaidan')} class="section__link">すべて見る →</a>
         </div>
         <div class="article-list">
           {kaidanArticles.map((entry) => <ArticleCard entry={entry} />)}
@@ -54,7 +55,7 @@ const horrorArticles = sorted.filter(a => a.data.category === 'horror').slice(0,
       <section class="section">
         <div class="section__header">
           <h2 class="section__title">ホラー映画</h2>
-          <a href={`${import.meta.env.BASE_URL}horror`} class="section__link">すべて見る →</a>
+          <a href={url('horror')} class="section__link">すべて見る →</a>
         </div>
         <div class="article-list">
           {horrorArticles.map((entry) => <ArticleCard entry={entry} />)}
