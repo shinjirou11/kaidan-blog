@@ -1,0 +1,28 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+
+const allArticles = await getCollection('articles', ({ data }) => data.category === 'horror');
+const sorted = allArticles.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+---
+
+<BaseLayout
+  title="ホラー映画レビュー・考察"
+  description="ホラー映画のネタバレなし感想と考察。怖さの構造を、静かに分析する。"
+  keywords={['ホラー映画', '感想', 'ネタバレなし', '考察', 'おすすめ', 'ホラー レビュー']}
+>
+  <div class="container">
+    <div class="category-header">
+      <p class="category-header__label">Category</p>
+      <h1 class="category-header__title">ホラー映画</h1>
+      <p class="category-header__count">{sorted.length} 件</p>
+    </div>
+
+    <section class="section">
+      <div class="article-list">
+        {sorted.map((entry) => <ArticleCard entry={entry} />)}
+      </div>
+    </section>
+  </div>
+</BaseLayout>

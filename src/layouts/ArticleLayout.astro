@@ -1,0 +1,114 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  entry: CollectionEntry<'articles'>;
+  canonicalUrl?: string;
+}
+
+const { entry, canonicalUrl } = Astro.props;
+const { title, description, pubDate, category, tags, seoKeywords, workTitle,
+        fearRating, qualityRating, amazonUrl, streamingUrl, streamingService,
+        relatedWorks } = entry.data;
+
+const categoryLabel = category === 'kaidan' ? '怪談' : 'ホラー映画';
+const dateStr = pubDate.toLocaleDateString('ja-JP', { year: 'numeric', month: 'long', day: 'numeric' });
+
+const jsonLd = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: title,
+  description,
+  datePublished: pubDate.toISOString(),
+  author: {
+    '@type': 'Person',
+    name: 'ホラー好き大学生',
+  },
+  keywords: [...tags, ...seoKeywords].join(', '),
+});
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  ogType="article"
+  canonicalUrl={canonicalUrl}
+  keywords={[...seoKeywords, ...tags]}
+  pubDate={pubDate}
+>
+  <script type="application/ld+json" set:html={jsonLd} />
+
+  <div class="container">
+    <article>
+      <header class="article-header">
+        <div class="article-header__meta">
+          <span class="article-card__category">{categoryLabel}</span>
+          <time class="article-card__date" datetime={pubDate.toISOString()}>{dateStr}</time>
+        </div>
+        <p class="article-header__work">「{workTitle}」</p>
+        <h1 class="article-header__title">{title}</h1>
+        <p class="article-header__desc">{description}</p>
+
+        <div class="rating-block">
+          <div class="rating-item">
+            <span class="rating-item__label">怖さ</span>
+            <div class="rating-item__dots">
+              {Array.from({ length: 5 }, (_, i) => (
+                <span class={`rating-dot${i < fearRating ? ' rating-dot--filled' : ''}`} />
+              ))}
+            </div>
+          </div>
+          <div class="rating-item">
+            <span class="rating-item__label">完成度</span>
+            <div class="rating-item__dots">
+              {Array.from({ length: 5 }, (_, i) => (
+                <span class={`rating-dot${i < qualityRating ? ' rating-dot--filled' : ''}`} />
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {tags.length > 0 && (
+          <div class="article-card__tags">
+            {tags.map((tag) => <span class="tag">{tag}</span>)}
+          </div>
+        )}
+      </header>
+
+      <div class="article-body">
+        <slot />
+      </div>
+
+      {(amazonUrl || streamingUrl) && (
+        <aside class="affiliate-block">
+          <p class="affiliate-block__label">作品情報</p>
+          <p class="affiliate-block__text">
+            気になった方はこちらからどうぞ。読後の余韻とともに。
+          </p>
+          <div style="display:flex; gap:0.8rem; flex-wrap:wrap; margin-top:0.6rem;">
+            {amazonUrl && (
+              <a class="affiliate-link" href={amazonUrl} target="_blank" rel="noopener noreferrer nofollow">
+                Amazon で見る
+              </a>
+            )}
+            {streamingUrl && (
+              <a class="affiliate-link" href={streamingUrl} target="_blank" rel="noopener noreferrer nofollow">
+                {streamingService ?? '配信サービス'} で見る
+              </a>
+            )}
+          </div>
+        </aside>
+      )}
+
+      {relatedWorks.length > 0 && (
+        <aside class="related-block">
+          <p class="related-block__title">合わせて読みたい / 観たい</p>
+          <ul class="related-list">
+            {relatedWorks.map((work) => <li>{work}</li>)}
+          </ul>
+        </aside>
+      )}
+    </article>
+  </div>
+</BaseLayout>

@@ -1,0 +1,65 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+
+const allArticles = await getCollection('articles');
+const sorted = allArticles.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+const recent = sorted.slice(0, 5);
+const kaidanArticles = sorted.filter(a => a.data.category === 'kaidan').slice(0, 3);
+const horrorArticles = sorted.filter(a => a.data.category === 'horror').slice(0, 3);
+---
+
+<BaseLayout
+  title="怪談と闇の記録"
+  description="怪談・ホラー映画のネタバレなし感想と考察。じわじわとした恐怖の余韻を大切に。"
+  keywords={['怪談', 'ホラー映画', '感想', 'ネタバレなし', '考察']}
+>
+  <section class="hero">
+    <div class="container">
+      <p class="hero__label">Horror &amp; Kaidan Review</p>
+      <h1 class="hero__title">怪談と闇の記録</h1>
+      <p class="hero__desc">
+        怪談とホラー映画の感想・考察。ネタバレなし。<br />
+        じわじわとした恐怖の余韻を、ここに残す。
+      </p>
+    </div>
+  </section>
+
+  <div class="container">
+    {recent.length > 0 && (
+      <section class="section">
+        <div class="section__header">
+          <h2 class="section__title">最新記事</h2>
+        </div>
+        <div class="article-list">
+          {recent.map((entry) => <ArticleCard entry={entry} />)}
+        </div>
+      </section>
+    )}
+
+    {kaidanArticles.length > 0 && (
+      <section class="section">
+        <div class="section__header">
+          <h2 class="section__title">怪談</h2>
+          <a href="/kaidan" class="section__link">すべて見る →</a>
+        </div>
+        <div class="article-list">
+          {kaidanArticles.map((entry) => <ArticleCard entry={entry} />)}
+        </div>
+      </section>
+    )}
+
+    {horrorArticles.length > 0 && (
+      <section class="section">
+        <div class="section__header">
+          <h2 class="section__title">ホラー映画</h2>
+          <a href="/horror" class="section__link">すべて見る →</a>
+        </div>
+        <div class="article-list">
+          {horrorArticles.map((entry) => <ArticleCard entry={entry} />)}
+        </div>
+      </section>
+    )}
+  </div>
+</BaseLayout>

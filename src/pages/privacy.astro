@@ -1,0 +1,118 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="プライバシーポリシー"
+  description="怪談と闇の記録のプライバシーポリシーです。Cookie・広告・アフィリエイトに関する情報を掲載しています。"
+>
+  <div class="container">
+    <div class="static-page">
+      <header class="static-page__header">
+        <p class="static-page__label">Legal</p>
+        <h1 class="static-page__title">プライバシーポリシー</h1>
+      </header>
+
+      <div class="static-page__body">
+        <p>本サイト「怪談と闇の記録」（以下、当サイト）における個人情報の取り扱いについて、以下のとおりプライバシーポリシーを定めます。</p>
+
+        <h2>1. 個人情報の収集について</h2>
+        <p>当サイトでは、お問い合わせフォームをご利用いただく際に、お名前・メールアドレス等の個人情報を収集する場合があります。収集した個人情報は、お問い合わせへの回答のみに使用し、第三者への提供は行いません。</p>
+
+        <h2>2. Cookieの使用について</h2>
+        <p>当サイトでは、広告配信およびアクセス解析のためにCookieを使用しています。Cookieは、ブラウザの設定から無効にすることが可能です。ただし、無効にした場合、一部のサービスが正常に機能しない場合があります。</p>
+
+        <h2>3. 広告（Google AdSense）について</h2>
+        <p>当サイトでは、Google AdSenseを利用した広告を掲載しています。Google AdSenseは、ユーザーの興味に合わせた広告を表示するためにCookieを使用します。</p>
+        <p>Google AdSenseに関するプライバシーポリシーの詳細や、広告のオプトアウト方法については、<a href="https://policies.google.com/technologies/ads" target="_blank" rel="noopener noreferrer">Googleのポリシーと規約</a>をご確認ください。</p>
+
+        <h2>4. アフィリエイトプログラムについて</h2>
+        <p>当サイトでは、Amazonアソシエイト・プログラムをはじめとするアフィリエイトプログラムに参加しています。記事内のリンクから商品・サービスを購入された場合、当サイトに一定の報酬が発生することがあります。</p>
+        <p>紹介する商品・サービスは、当サイト管理人が実際に鑑賞・使用した上で、読者に有益と判断したものに限ります。</p>
+
+        <h2>5. アクセス解析ツールについて</h2>
+        <p>当サイトでは、Googleによるアクセス解析ツール「Google Analytics」を使用する場合があります。Google Analyticsはトラフィックデータの収集のためにCookieを使用しています。収集されるデータは匿名であり、個人を特定するものではありません。</p>
+
+        <h2>6. 免責事項</h2>
+        <p>当サイトに掲載している情報は、できる限り正確な情報を提供するよう努めておりますが、正確性・完全性を保証するものではありません。当サイトの情報を利用して生じた損害について、当サイトはいかなる責任も負いません。</p>
+        <p>また、当サイトに掲載されたレビュー・感想は管理人個人の意見であり、作品の品質を保証するものではありません。</p>
+
+        <h2>7. 著作権について</h2>
+        <p>当サイトに掲載されている文章・構成等の著作権は、当サイト管理人に帰属します。無断転載・複製はお断りします。</p>
+
+        <h2>8. プライバシーポリシーの変更について</h2>
+        <p>当サイトは、必要に応じて本プライバシーポリシーを変更することがあります。変更後のプライバシーポリシーは、本ページに掲載した時点から効力を生じるものとします。</p>
+
+        <p class="static-page__updated">最終更新日：2026年5月25日</p>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .static-page {
+    padding: var(--space-lg) 0 var(--space-xl);
+  }
+
+  .static-page__header {
+    margin-bottom: var(--space-lg);
+    padding-bottom: var(--space-md);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .static-page__label {
+    font-family: var(--font-sans);
+    font-size: 0.65rem;
+    font-weight: 300;
+    letter-spacing: 0.3em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+  }
+
+  .static-page__title {
+    font-size: clamp(1.6rem, 4vw, 2.2rem);
+    font-weight: 300;
+    letter-spacing: 0.06em;
+  }
+
+  .static-page__body {
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    font-weight: 300;
+    line-height: 1.9;
+    color: var(--text-secondary);
+  }
+
+  .static-page__body h2 {
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--text-primary);
+    letter-spacing: 0.05em;
+    margin-top: var(--space-md);
+    margin-bottom: 0.8rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .static-page__body p {
+    margin-bottom: 1rem;
+  }
+
+  .static-page__body a {
+    color: var(--text-secondary);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .static-page__body a:hover {
+    color: var(--text-primary);
+  }
+
+  .static-page__updated {
+    margin-top: var(--space-lg);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+</style>

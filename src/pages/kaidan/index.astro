@@ -1,0 +1,28 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+
+const allArticles = await getCollection('articles', ({ data }) => data.category === 'kaidan');
+const sorted = allArticles.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+---
+
+<BaseLayout
+  title="怪談レビュー・考察"
+  description="実話怪談・ネット怪談のネタバレなし感想と考察。余韻の残る怪談を、静かに読み解く。"
+  keywords={['怪談', '実話怪談', 'ネット怪談', '感想', 'ネタバレなし', '考察', 'おすすめ']}
+>
+  <div class="container">
+    <div class="category-header">
+      <p class="category-header__label">Category</p>
+      <h1 class="category-header__title">怪談</h1>
+      <p class="category-header__count">{sorted.length} 件</p>
+    </div>
+
+    <section class="section">
+      <div class="article-list">
+        {sorted.map((entry) => <ArticleCard entry={entry} />)}
+      </div>
+    </section>
+  </div>
+</BaseLayout>
